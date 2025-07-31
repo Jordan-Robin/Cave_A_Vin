@@ -13,11 +13,12 @@ import lombok.*;
 @Entity
 @Table(name = "CAV_CLIENTS")
 public class Client {
+    // TODO contraintes validation
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "ID")
-    private Long id;
+    private int id;
 
     @EqualsAndHashCode.Include
     @Column(name = "LOGIN", nullable = false, unique = true, length = 100)
