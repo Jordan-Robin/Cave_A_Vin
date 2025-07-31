@@ -11,8 +11,7 @@ import org.mockito.MockitoAnnotations;
 import java.util.Optional;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
-import static org.junit.jupiter.api.Assertions.assertThrows;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.Mockito.when;
 
 public class TestClientService {
@@ -58,12 +57,13 @@ public class TestClientService {
         clientService.createClient(client);
 
         // Assert : verify that the client was saved correctly
-        Optional<Client> savedClient = clientRepository.findById(id);
-        assertTrue(savedClient.isPresent());
-        assertThat(savedClient.get().getPseudo()).isEqualTo(pseudo);
-        assertThat(savedClient.get().getNom()).isEqualTo(client.getNom());
-        assertThat(savedClient.get().getPrenom()).isEqualTo(client.getPrenom());
-        assertThat(savedClient.get().getPassword()).isEqualTo(client.getPassword());
+        Optional<Client> op = clientRepository.findById(id);
+        assertTrue(op.isPresent());
+        Client savedClient = op.get();
+        assertThat(savedClient.getPseudo()).isEqualTo(pseudo);
+        assertThat(savedClient.getNom()).isEqualTo(client.getNom());
+        assertThat(savedClient.getPrenom()).isEqualTo(client.getPrenom());
+        assertThat(savedClient.getPassword()).isEqualTo(client.getPassword());
     }
 
     @Test
