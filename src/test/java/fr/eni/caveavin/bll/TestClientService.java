@@ -2,6 +2,7 @@ package fr.eni.caveavin.bll;
 
 import fr.eni.caveavin.bo.Client;
 import fr.eni.caveavin.dal.ClientRepository;
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mock;
@@ -21,11 +22,19 @@ public class TestClientService {
     @Mock
     private ClientRepository clientRepository;
 
+    private AutoCloseable closeable;
+
     @BeforeEach
     public void setUp() {
         // Initialize the clientService with the mocked clientRepository
-        MockitoAnnotations.openMocks(this);
+        closeable = MockitoAnnotations.openMocks(this);
         clientService = new ClientServiceImpl(clientRepository);
+    }
+
+    @AfterEach
+    public void tearDown() throws Exception {
+        // Close the mock resources
+        closeable.close();
     }
 
     @Test
@@ -59,9 +68,7 @@ public class TestClientService {
 
     @Test
     public void testCreateClientWithNull() {
-        assertThrows(NullPointerException.class, () -> {
-            clientService.createClient(null);
-        });
+        assertThrows(NullPointerException.class, () -> clientService.createClient(null));
     }
 
     @Test
@@ -80,9 +87,7 @@ public class TestClientService {
         when(clientRepository.findByPseudo(pseudo)).thenReturn(Optional.of(existingClient));
 
         // Call the method to test and expect an exception
-        assertThrows(IllegalArgumentException.class, () -> {
-            clientService.createClient(existingClient);
-        });
+        assertThrows(IllegalArgumentException.class, () -> clientService.createClient(existingClient));
     }
 
     @Test
@@ -97,9 +102,7 @@ public class TestClientService {
                 .build();
 
         // Call the method to test and expect an exception
-        assertThrows(IllegalArgumentException.class, () -> {
-            clientService.createClient(client);
-        });
+        assertThrows(IllegalArgumentException.class, () -> clientService.createClient(client));
     }
 
 }
