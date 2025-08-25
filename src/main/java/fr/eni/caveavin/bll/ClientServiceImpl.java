@@ -45,7 +45,7 @@ public class ClientServiceImpl implements ClientService {
         if (client == null || client.getId() <= 0) {
             throw new IllegalArgumentException("Client cannot be null and must have a valid ID");
         }
-        // TODO valider le pseudo si changement
+        // TODO valider l'unicité du pseudo si changement
         clientRepository.save(client);
     }
 
