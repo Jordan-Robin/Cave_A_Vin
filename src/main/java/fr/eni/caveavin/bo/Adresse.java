@@ -12,11 +12,10 @@ import lombok.*;
 @Entity
 @Table(name = "CAV_ADRESSES")
 public class Adresse {
-    // TODO contraintes validation
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "ID")
+    @Column(name = "ADDRESS_ID")
     private Integer id;
 
     @Column(name = "STREET", nullable = false, length = 255)

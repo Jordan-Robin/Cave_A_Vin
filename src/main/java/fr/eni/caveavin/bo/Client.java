@@ -13,7 +13,6 @@ import lombok.*;
 @Entity
 @Table(name = "CAV_CLIENTS")
 public class Client {
-    // TODO contraintes validation
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -33,5 +32,9 @@ public class Client {
     @ToString.Exclude
     @Column(name = "PASSWORD", nullable = false, length = 100)
     private String password;
+
+    @OneToOne(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.EAGER)
+    @JoinColumn(name = "ADDRESS_ID")
+    private Adresse adresse;
 
 }
