@@ -21,7 +21,7 @@ public class Utilisateur {
     @Column(name = "USER_ID")
     private Integer id;
 
-    @Column(name = "LOGIN", nullable = false, length = 255)
+    @Column(name = "LOGIN", unique = true, nullable = false, length = 255)
     private String pseudo;
 
     @Column(name = "PASSWORD", nullable = false, length = 68)
